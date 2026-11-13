@@ -79,6 +79,8 @@ async function reply(message) {
         { role: "user", content: message },
       ],
     }),
+  }).catch(() => {
+    throw Object.assign(new Error("falha ao contatar o modelo"), { status: 502 });
   });
   if (!r.ok) throw Object.assign(new Error(`upstream ${r.status}`), { status: 502 });
   const text = (await r.json())?.choices?.[0]?.message?.content;
