@@ -29,6 +29,13 @@ function Set-CloudSecret([string]$Name, [string]$Value, [string]$Project) {
     }
 }
 
+$gcloudCommand = Get-Command gcloud -ErrorAction SilentlyContinue
+if (-not $gcloudCommand) {
+    $gcloudBin = Join-Path $env:LOCALAPPDATA "Google\Cloud SDK\google-cloud-sdk\bin"
+    if (Test-Path (Join-Path $gcloudBin "gcloud.cmd")) {
+        $env:PATH = "$gcloudBin;$env:PATH"
+    }
+}
 if (-not (Get-Command gcloud -ErrorAction SilentlyContinue)) {
     throw "Google Cloud CLI não encontrado. Instale em https://cloud.google.com/sdk/docs/install e abra um novo PowerShell."
 }
