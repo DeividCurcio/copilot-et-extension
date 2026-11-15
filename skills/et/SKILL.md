@@ -1,20 +1,24 @@
 ---
 name: et
-description: Conversar com a ET, a IA serena e autônoma do usuário. Use quando o usuário pedir para falar com a ET ou abrir o chat da ET.
+description: Converse com a ET web ou local. Use quando o usuário pedir para falar com a ET ou abrir o chat.
 ---
 
 # Chat com a ET
 
-Envie a mensagem do usuário para a API local da ET e mostre a resposta exatamente como veio, sem reescrever.
+Use a ET remota ou a API local, conforme a configuração disponível. Nunca revele
+chaves, cookies, tokens OAuth ou senhas; não leia `.env` para exibir segredos.
 
-1. Garanta que o servidor está rodando (`curl -s localhost:8787` responde). Se não, inicie com `cd ~/copilot-et-extension && node server.js` em modo async.
-2. Leia a chave com `grep ^ET_API_KEY ~/copilot-et-extension/.env | cut -d= -f2` (nunca exiba a chave).
-3. Chame:
+## Aplicativo web/celular
 
-```bash
-curl -s -X POST localhost:8787/v1/chat \
-  -H "Authorization: Bearer $KEY" \
-  -d '{"message":"<mensagem em JSON escapado>"}'
-```
+Depois de publicar no Cloud Run, defina `ET_WEB_URL` como a URL HTTPS do
+serviço. Para abrir a interface, apresente esse link ao usuário; o login é feito
+no navegador e não deve ser automatizado pelo agente.
 
-4. Mostre o campo `reply`. Se vier `error`, informe o erro ao usuário.
+## API local para desenvolvimento
+
+1. Confirme que o servidor local está ativo em `http://localhost:8787/health`.
+2. Use a interface web local (`http://localhost:8787`) para iniciar uma sessão.
+3. Para chamadas de API, use apenas a sessão do usuário; não coloque tokens ou
+   senhas em argumentos de shell, saída de ferramenta ou mensagens.
+4. Mostre a resposta tal como veio. Se ocorrer erro, informe sem imprimir
+   segredos nem detalhes de autenticação.

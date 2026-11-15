@@ -1,2 +1,12 @@
 .env
+.env.*
+!.env.example
 node_modules
+credentials.json
+et_config.json
+et_gmail_token.json
+et_memoria.json
+client_secret*.json
+*.pem
+*.key
+*.p12

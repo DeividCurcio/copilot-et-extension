@@ -2,9 +2,11 @@
   "name": "copilot-et-extension",
   "version": "1.0.0",
   "private": true,
+  "description": "Assistente ET com interface PWA e API segura para implantação no Cloud Run.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=20"
